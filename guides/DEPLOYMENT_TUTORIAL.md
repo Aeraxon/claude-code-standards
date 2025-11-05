@@ -34,7 +34,7 @@
 
 ## Installation (Automated)
 
-### Option A: New Project (Recommended)
+### Project Setup
 
 ```bash
 # 1. Create project directory
@@ -54,8 +54,8 @@ git clone https://github.com/Aeraxon/claude-code-standards .claude-standards
 **The script installs:**
 - ✅ Node.js 20 (if not present)
 - ✅ Claude Code
-- ✅ Standard commands to `~/.claude/commands/` AND `.claude/commands/`
-- ✅ Guides to `~/.claude/standards/`
+- ✅ Standard commands to `.claude/commands/`
+- ✅ Guides remain in cloned repository
 - ✅ Configuration (auto-compact off)
 - ✅ Optional: GitHub CLI
 
@@ -68,27 +68,6 @@ claude
 # Follow instructions for login
 
 # 7. Initialize project
-/project-init
-```
-
-### Option B: Global Installation (for multiple projects)
-
-```bash
-# 1. Clone standards repo
-cd ~
-git clone https://github.com/Aeraxon/claude-code-standards
-
-# 2. Run installation script
-~/claude-code-standards/install.sh
-
-# 3. Done! Now you can start any number of projects
-```
-
-**Then for each new project:**
-```bash
-mkdir my-project && cd my-project
-git init
-claude
 /project-init
 ```
 
@@ -214,6 +193,9 @@ tree -L 2 .
 # │   ├── commands/
 # │   ├── agents/
 # │   └── skills/
+# ├── .claude-standards/
+# │   ├── guides/
+# │   └── commands/
 # ├── docs/
 # │   ├── ARCHITECTURE.md
 # │   ├── SESSION_NOTES.md
@@ -345,34 +327,29 @@ npm install -g @anthropic-ai/claude-code
 claude --version  # Verify
 ```
 
-### 3. Create Directories
+### 3. Set Up Project
 
 ```bash
-mkdir -p ~/.claude/commands
-mkdir -p ~/.claude/standards
+# Create project directory
+mkdir my-project
+cd my-project
+git init
+
+# Clone standards
+git clone https://github.com/Aeraxon/claude-code-standards .claude-standards
+
+# Create project commands directory
+mkdir -p .claude/commands
+
+# Copy commands to project
+cp .claude-standards/commands/*.md .claude/commands/
 ```
 
-### 4. Clone Standards
+### 4. Create Config
 
 ```bash
-cd ~
-git clone https://github.com/Aeraxon/claude-code-standards
-```
-
-### 5. Copy Files
-
-```bash
-# Commands
-cp ~/claude-code-standards/commands/*.md ~/.claude/commands/
-
-# Guides  
-cp ~/claude-code-standards/guides/*.md ~/.claude/standards/
-```
-
-### 6. Create Config
-
-```bash
-cat > ~/.claude/settings.json <<EOF
+mkdir -p .claude
+cat > .claude/settings.json <<EOF
 {
   "autoCompact": false,
   "allowedTools": ["bash", "read", "write", "edit"]
@@ -380,7 +357,7 @@ cat > ~/.claude/settings.json <<EOF
 EOF
 ```
 
-### 7. Optional: GitHub CLI
+### 5. Optional: GitHub CLI
 
 ```bash
 sudo apt install gh
@@ -445,11 +422,11 @@ claude
 
 **Solution:**
 ```bash
-# Check if command exists
-ls ~/.claude/commands/project-init.md
+# Check if command exists in project
+ls .claude/commands/project-init.md
 
 # If not, copy it:
-cp ~/.claude/standards/claude-code-standards/commands/project-init.md ~/.claude/commands/
+cp .claude-standards/commands/project-init.md .claude/commands/
 
 # Restart Claude
 exit
@@ -464,7 +441,7 @@ Config shows auto-compact but can't disable.
 **Solution:**
 ```bash
 # Edit settings directly
-nano ~/.claude/settings.json
+nano .claude/settings.json
 
 # Add or modify:
 {
@@ -511,6 +488,24 @@ sudo apt-get install -y nodejs
 node --version  # Should be v20.x.x
 ```
 
+### Commands Not Available After Installation
+
+**Problem:**
+Custom commands like `/plan` or `/session-start` not recognized.
+
+**Solution:**
+```bash
+# Verify commands are in project .claude directory
+ls .claude/commands/
+
+# If empty, copy them:
+cp .claude-standards/commands/*.md .claude/commands/
+
+# Restart Claude
+exit
+claude
+```
+
 ---
 
 ## Cheat Sheet
@@ -544,14 +539,12 @@ sudo apt install gh
 gh auth login
 ```
 
-### Standard Setup (Global)
+### Project Setup (Manual)
 ```bash
-# Clone repo
-git clone https://github.com/Aeraxon/claude-code-standards
-
-# Install
-cd claude-code-standards
-./install.sh
+# Clone and copy commands
+git clone https://github.com/Aeraxon/claude-code-standards .claude-standards
+mkdir -p .claude/commands
+cp .claude-standards/commands/*.md .claude/commands/
 ```
 
 ### Daily Workflow
