@@ -169,7 +169,7 @@ claude
 
 ## 🔧 Installation
 
-### Per-Project (Recommended)
+### Project Setup (Recommended)
 
 ```bash
 mkdir my-project && cd my-project
@@ -178,21 +178,12 @@ git clone https://github.com/Aeraxon/claude-code-standards .claude-standards
 ./.claude-standards/install.sh
 ```
 
-### Global (Multiple Projects)
-
-```bash
-cd ~
-git clone https://github.com/Aeraxon/claude-code-standards
-cd claude-code-standards
-./install.sh
-```
-
 ### What the Script Does
 
 - ✅ Installs Node.js 20 (if needed)
 - ✅ Installs Claude Code
-- ✅ Copies commands to `~/.claude/commands/`
-- ✅ Copies guides to `~/.claude/standards/`
+- ✅ Copies commands to `.claude/commands/`
+- ✅ Guides remain in cloned repository
 - ✅ Configures settings (auto-compact off)
 - ✅ Optional: GitHub CLI
 
