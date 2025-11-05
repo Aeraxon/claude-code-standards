@@ -83,6 +83,9 @@ project_name/
 │   ├── agents/                  # Subagents (optional)
 │   ├── skills/                  # Skills (optional)
 │   └── settings.json            # Project-specific settings
+├── .claude-standards/           # Cloned standards repo
+│   ├── guides/                  # Reference guides
+│   └── commands/                # Standard commands
 ├── src/                         # Source code
 ├── tests/                       # Test suite
 ├── docs/
@@ -133,8 +136,10 @@ echo ".DS_Store" >> .gitignore
 **Locations:**
 - `./CLAUDE.md` - Project-wide (commit to git)
 - `./CLAUDE.local.md` - Local-only overrides (gitignore)
-- `~/CLAUDE.md` - Personal defaults for all projects
+- `~/CLAUDE.md` - Personal defaults (applies across all projects)
 - Subdirectories: `./frontend/CLAUDE.md`, `./backend/CLAUDE.md`, etc.
+
+**Note:** Commands and guides are project-local in `.claude/` and `.claude-standards/` directories.
 
 ### 2. docs/SESSION_NOTES.md
 
@@ -537,6 +542,8 @@ Use this template and customize for your project:
 
 ### Essential Commands to Create
 
+Commands are stored in `.claude/commands/` and copied from `.claude-standards/commands/` during setup.
+
 **1. `.claude/commands/project-init.md`**
 See `commands/project-init.md` for full template.
 
@@ -769,6 +776,20 @@ claude
 2. Use `/session-end` command
 3. Test recovery: Close and reopen, can you resume?
 
+### Commands Not Found
+
+**Cause:** Commands not in project `.claude/commands/`
+
+**Solution:**
+```bash
+# Copy commands from standards repo
+cp .claude-standards/commands/*.md .claude/commands/
+
+# Restart Claude
+exit
+claude
+```
+
 ---
 
 ## Checklist: Setting Up a New Project
@@ -801,7 +822,8 @@ When starting with `/project-init`:
 2. `docs/SESSION_NOTES.md` - Running log
 3. `docs/WORK_IN_PROGRESS.md` - Current task state
 4. `docs/ARCHITECTURE.md` - Design decisions
-5. `.claude/commands/` - Reusable prompts
+5. `.claude/commands/` - Reusable prompts (project-local)
+6. `.claude-standards/` - Reference guides
 
 **Essential Commands:**
 - `/project-init` - Initialize new project
