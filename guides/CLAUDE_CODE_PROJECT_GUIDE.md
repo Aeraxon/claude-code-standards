@@ -52,7 +52,20 @@
 
 ## Initial Project Setup
 
-### 3-Phase Approach
+### Choosing Your Approach
+
+**Use `/project-init` when:**
+- Starting a brand new project from scratch
+- Empty directory or minimal boilerplate
+- Want Claude to design the initial structure
+
+**Use `/project-adopt` when:**
+- Working with an existing codebase
+- Cloned a repository (git clone)
+- Have a partially completed project
+- Want to integrate Claude Code Standards into current work
+
+### 3-Phase Approach (New Projects)
 
 #### Phase 1: Installation (One-time per host)
 See `DEPLOYMENT_TUTORIAL.md` for detailed instructions.
@@ -65,6 +78,49 @@ Use `/project-init` command to:
 
 #### Phase 3: Development
 Follow workflow patterns with proper documentation discipline.
+
+### 4-Phase Approach (Existing Projects)
+
+#### Phase 1: Analysis & Discovery
+Claude automatically:
+- Explores codebase structure
+- Identifies tech stack and dependencies
+- Reads existing documentation
+- Analyzes git history and patterns
+- Maps architecture and components
+
+#### Phase 2: Understanding Verification
+Interactive clarification:
+- Claude presents what it understood
+- Asks questions about unclear aspects
+- **User confirms understanding**
+- **User states goals and priorities**
+- Must be approved before proceeding
+
+#### Phase 3: Design & Recommendations
+Claude designs integration (WITHOUT coding):
+- Reads SKILLS_AND_SUBAGENTS_REFERENCE.md
+- Recommends appropriate subagents (3-5)
+- Recommends appropriate skills (2-4)
+- Drafts project-specific CLAUDE.md
+- **Plans documentation consolidation**
+- Presents everything for approval
+
+**Documentation Consolidation:**
+- Maps existing docs to standard structure
+- Plans what to consolidate, restructure, keep
+- Preserves all valuable information
+- Asks about unclear documents
+- **Waits for approval**
+
+#### Phase 4: Integration
+After approval, Claude:
+- Creates `.claude/` structure
+- Copies standard commands
+- Creates approved subagents and skills
+- **Executes documentation consolidation carefully**
+- Creates/updates standard docs
+- Prepares commit (user reviews before committing)
 
 ### Directory Structure
 
@@ -794,7 +850,7 @@ claude
 
 ## Checklist: Setting Up a New Project
 
-When starting with `/project-init`:
+### For New Projects (`/project-init`)
 
 ```markdown
 ## Setup Checklist
@@ -813,6 +869,29 @@ When starting with `/project-init`:
 - [ ] Update SESSION_NOTES.md with goals
 ```
 
+### For Existing Projects (`/project-adopt`)
+
+```markdown
+## Adoption Checklist
+
+- [ ] Ensure git is clean (commit or stash changes)
+- [ ] Run `/project-adopt` command
+- [ ] Review Claude's understanding of your project
+- [ ] Answer clarification questions
+- [ ] State your goals and priorities
+- [ ] Review proposed subagents and skills
+- [ ] Review documentation consolidation plan
+- [ ] Approve or request changes
+- [ ] Let integration phase complete
+- [ ] Review changes with `git diff`
+- [ ] Verify no valuable docs were lost
+- [ ] Verify CLAUDE.md is project-specific
+- [ ] Verify docs/ structure matches standards
+- [ ] Verify .claude/commands/, agents/, skills/ exist
+- [ ] Test /session-start command
+- [ ] Commit when satisfied
+```
+
 ---
 
 ## Summary: Quick Reference
@@ -827,6 +906,7 @@ When starting with `/project-init`:
 
 **Essential Commands:**
 - `/project-init` - Initialize new project
+- `/project-adopt` - Adopt existing project
 - `/clear` - Remove context noise
 - `/config` - Disable auto-compact
 - `/session-start` - Begin session with context

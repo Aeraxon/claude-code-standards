@@ -93,6 +93,8 @@ claude
 
 ## Initialize New Project
 
+**Use this section for:** Brand new projects starting from scratch
+
 ### What happens with /project-init?
 
 #### Phase 1: Information Gathering
@@ -203,6 +205,237 @@ tree -L 2 .
 # ├── src/
 # ├── tests/
 # └── ...
+```
+
+---
+
+## Adopt Existing Project
+
+**Use this section for:** Existing codebases, cloned repositories, or partially completed projects
+
+### What happens with /project-adopt?
+
+#### Phase 1: Analysis & Discovery (Automatic)
+
+Claude explores your project:
+```
+Analyzing project structure...
+✓ Found Python 3.11 with FastAPI
+✓ Detected PostgreSQL database
+✓ Read existing documentation
+✓ Analyzed git history (120 commits)
+✓ Mapped 15 source files across 5 modules
+```
+
+#### Phase 2: Understanding Verification (Interactive)
+
+Claude presents understanding:
+```
+## My Understanding of Your Project
+
+**Project Type:** REST API for task management
+
+**Tech Stack:**
+- Language: Python 3.11
+- Framework: FastAPI
+- Database: PostgreSQL with SQLAlchemy
+- Key Libraries: Pydantic, alembic, pytest
+
+**Architecture:**
+Layered architecture with:
+- API layer (src/api/)
+- Business logic (src/services/)
+- Data layer (src/models/)
+- Shared utilities (src/utils/)
+
+**Current State:**
+- Test Coverage: ~60% (pytest found)
+- CI/CD: GitHub Actions configured
+- Code Standards: Black formatter, ruff linter
+- Documentation: README.md, scattered notes in docs/
+
+**Recent Work:**
+Last commit: "Add user authentication endpoints" (2 days ago)
+Active branch: feature/auth
+
+---
+
+**Questions I have:**
+
+1. I see two authentication approaches (JWT and session-based) -
+   which is the preferred direction?
+
+2. The docs/notes/ folder has multiple files - are these still
+   relevant or can they be consolidated?
+
+3. What are your immediate goals with this project?
+```
+
+**You answer:**
+```
+1. JWT is the way forward, session-based is legacy
+2. Most notes are outdated, keep only the API design doc
+3. Goals:
+   - Complete authentication module
+   - Add comprehensive tests
+   - Improve documentation structure
+```
+
+Claude confirms understanding, then asks:
+```
+✓ Got it. Ready to design the integration plan.
+
+Proceed? (yes/no)
+```
+
+**You say:** `yes`
+
+#### Phase 3: Design & Recommendations (Claude plans, does NOT code)
+
+Claude creates integration plan:
+```
+# Project Adoption Proposal
+
+## 1. Recommended Subagents
+
+### api-reviewer (Sonnet)
+**Purpose:** Review API endpoints for consistency and best practices
+**Tools:** Read, Grep, Glob
+**Justification:** Project is API-focused, needs consistent design
+
+### test-generator (Sonnet)
+**Purpose:** Create comprehensive test suites
+**Tools:** Read, Write, Bash
+**Justification:** You want to improve test coverage
+
+### security-auditor (Sonnet)
+**Purpose:** Security review for authentication and endpoints
+**Tools:** Read, Grep
+**Justification:** Authentication is in progress, needs security focus
+
+## 2. Recommended Skills
+
+### api-conventions
+**Purpose:** Enforce REST best practices
+**Activates when:** Working on API endpoints
+**Justification:** Ensures consistency across existing and new endpoints
+
+### testing-workflow
+**Purpose:** Standardized test creation process
+**Activates when:** Writing tests
+**Justification:** Helps achieve comprehensive test coverage
+
+## 3. CLAUDE.md Content
+[Shows project-specific CLAUDE.md with YOUR stack, structure, commands]
+
+## 4. Documentation Consolidation Plan
+
+### TO CONSOLIDATE:
+- docs/notes/architecture.md → docs/ARCHITECTURE.md
+  - Merge with existing architectural decisions
+- docs/notes/todo.md → docs/SESSION_NOTES.md
+  - Add as first session with current state
+
+### TO RESTRUCTURE:
+- docs/setup.md → CLAUDE.md (Common Commands section)
+  - Contains dev setup, belongs in CLAUDE.md
+
+### TO KEEP (Already Compliant):
+- README.md ✓ - Well structured
+- docs/api/ ✓ - API documentation
+
+### UNCLEAR / NEED DECISION:
+- docs/notes/meeting-notes-*.md - Archive or delete?
+  - Option A: Move to docs/archive/
+  - Option B: Delete (in git history anyway)
+
+### NEW FILES TO CREATE:
+- docs/ARCHITECTURE.md - Will contain: system design, decisions
+- docs/SESSION_NOTES.md - Will contain: work history starting now
+- docs/WORK_IN_PROGRESS.md - Empty, ready for tasks
+
+---
+
+**Ready to proceed?**
+Review and approve, or request changes.
+```
+
+**You review and say:**
+```
+approved, but delete the old meeting notes - they're not useful anymore
+```
+
+#### Phase 4: Integration (After Approval)
+
+Claude executes integration:
+```
+✓ Created .claude/commands/ (8 commands)
+✓ Created .claude/agents/ (3 subagents)
+✓ Created .claude/skills/ (2 skills)
+✓ Consolidated docs/notes/architecture.md → docs/ARCHITECTURE.md
+✓ Consolidated docs/notes/todo.md → docs/SESSION_NOTES.md
+✓ Moved docs/setup.md content → CLAUDE.md
+✓ Deleted docs/notes/meeting-notes-*.md
+✓ Created docs/WORK_IN_PROGRESS.md
+✓ Created CLAUDE.md (project-specific, 87 lines)
+✓ Updated .gitignore
+
+Ready to commit. Review with:
+  git diff --cached
+
+Suggested commit:
+  "Adopt Claude Code Standards workflow
+
+  - Add .claude/ structure (commands, agents, skills)
+  - Create CLAUDE.md with project context
+  - Consolidate documentation into standard structure
+  - Add standard docs: ARCHITECTURE.md, SESSION_NOTES.md, WORK_IN_PROGRESS.md
+
+  Subagents: api-reviewer, test-generator, security-auditor
+  Skills: api-conventions, testing-workflow"
+
+Approve commit? (yes/no)
+```
+
+**You say:** `yes` (or review first with `git diff --cached`)
+
+```
+✓ Changes committed
+
+Project adoption complete! 🎉
+
+Available commands:
+  /session-start   - Start work sessions
+  /session-end     - End sessions cleanly
+  /plan <feature>  - Create implementation plans
+  /review <file>   - Code review
+  /test <file>     - Generate tests
+
+Your goals:
+  1. Complete authentication module
+  2. Add comprehensive tests
+  3. Improve documentation structure
+
+Ready to start? Run /session-start
+```
+
+### Verify Adoption
+
+```bash
+# Check new structure
+ls .claude/
+# Should show: commands/ agents/ skills/ settings.json
+
+ls .claude/commands/
+# Should show: project-adopt.md, session-start.md, etc.
+
+# Check consolidated docs
+ls docs/
+# Should show: ARCHITECTURE.md, SESSION_NOTES.md, WORK_IN_PROGRESS.md
+
+# Check CLAUDE.md was created
+cat CLAUDE.md
+# Should show YOUR project's specifics, not a template
 ```
 
 ---
@@ -525,6 +758,20 @@ claude
 /project-init
 ```
 
+### Quick Start (Existing Project)
+```bash
+# 1. Navigate to project
+cd my-existing-project
+
+# 2. Install standards
+git clone https://github.com/Aeraxon/claude-code-standards .claude-standards
+./.claude-standards/install.sh
+
+# 3. Adopt standards
+claude
+/project-adopt
+```
+
 ### Installation Commands (Manual)
 ```bash
 # Node.js
@@ -569,6 +816,7 @@ claude
 | `claude` | Start new session |
 | `claude --continue` | Resume last session |
 | `/project-init` | Initialize new project |
+| `/project-adopt` | Adopt existing project |
 | `/session-start` | Begin work session |
 | `/session-end` | End session cleanly |
 | `/plan <feature>` | Create implementation plan |

@@ -8,6 +8,8 @@ Complete framework for efficient, structured development with Claude Code. Inclu
 
 ## 🚀 Quick Start
 
+### For New Projects
+
 ```bash
 # 1. Create new project
 mkdir my-project && cd my-project
@@ -22,11 +24,26 @@ claude
 /project-init
 ```
 
+### For Existing Projects
+
+```bash
+# 1. Navigate to your existing project
+cd my-existing-project
+
+# 2. Install standards
+git clone https://github.com/Aeraxon/claude-code-standards .claude-standards
+./.claude-standards/install.sh
+
+# 3. Adopt standards into your project
+claude
+/project-adopt
+```
+
 **That's it!** You now have:
 - ✅ Claude Code installed & configured
 - ✅ Standard commands available
 - ✅ Best-practice guides locally
-- ✅ Project structure initialized
+- ✅ Project structure initialized (or integrated)
 
 ---
 
@@ -43,7 +60,8 @@ claude
 - **`DEPLOYMENT_TUTORIAL.md`** - Zero to ready
 
 ### ⚡ Standard Commands
-- **`/project-init`** - 3-phase project initialization
+- **`/project-init`** - 3-phase project initialization (new projects)
+- **`/project-adopt`** - 4-phase project adoption (existing projects)
 - **`/session-start`** - Start work session with context
 - **`/session-end`** - Clean session endings
 - **`/plan`** - Implementation planning
@@ -54,10 +72,16 @@ claude
 
 ### 🎯 Key Features
 
-#### 3-Phase Project Initialization
+#### 3-Phase Project Initialization (New Projects)
 1. **Information Gathering** - Collect requirements
 2. **Research Phase** - Claude designs structure (WITHOUT coding)
 3. **Setup Phase** - Creates everything after approval
+
+#### 4-Phase Project Adoption (Existing Projects)
+1. **Analysis & Discovery** - Understand existing codebase
+2. **Understanding Verification** - Confirm comprehension with user
+3. **Design & Recommendations** - Plan integration strategy
+4. **Integration** - Adopt standards into existing project
 
 #### Strict Documentation Rules
 - Prevents documentation proliferation
@@ -94,7 +118,8 @@ claude-code-standards/
 │   ├── SKILLS_AND_SUBAGENTS_REFERENCE.md     # Subagent/skill design (for Claude)
 │   └── DEPLOYMENT_TUTORIAL.md                # Installation guide
 ├── commands/
-│   ├── project-init.md                       # 3-phase initialization
+│   ├── project-init.md                       # 3-phase initialization (new)
+│   ├── project-adopt.md                      # 4-phase adoption (existing)
 │   ├── plan.md                               # Planning
 │   ├── session-start.md                      # Session start
 │   ├── session-end.md                        # Session end
