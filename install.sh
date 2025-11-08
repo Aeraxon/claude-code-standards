@@ -89,7 +89,7 @@ if command -v claude &> /dev/null; then
     print_success "Claude Code already installed: $CLAUDE_VERSION"
 else
     print_info "Installing Claude Code globally..."
-    npm install -g @anthropic-ai/claude-code
+    sudo npm install -g @anthropic-ai/claude-code
     print_success "Claude Code installed"
 fi
 
