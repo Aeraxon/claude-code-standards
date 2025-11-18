@@ -13,18 +13,23 @@ Claude Code must be installed globally. If not installed yet:
 ## Quick Start
 
 ```bash
-# 1. Clone for your new project
-git clone <your-repo-url> my-new-project
+# 1. Create and enter your project directory
+mkdir my-new-project
 cd my-new-project
 
-# 2. Initialize (deploys templates, cleans up)
-./projekt_init.sh
+# 2. Clone this repo
+git clone <your-repo-url> claude-standards
 
-# 3. Set up your project
+# 3. Initialize (deploys to parent dir, removes clone)
+cd claude-standards
+./projekt_init.sh
+cd ..
+
+# 4. Set up your project
 nano docs/vision.md    # Fill in your project goals
 git init               # Initialize your own repo
 
-# 4. Start working in Claude Code
+# 5. Start working in Claude Code
 claude
 /create-agents         # Deploy subagents
 /session-start         # Begin work
