@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Claude Code Project Initialization Script
-# Deploys templates and sets up project structure
+# Deploys templates to parent directory and cleans up
 
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_ROOT="$(pwd)"
+PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"  # Parent directory = actual project root
 
 echo "=== Claude Code Project Initialization ==="
 echo "Script location: $SCRIPT_DIR"
@@ -54,16 +54,9 @@ if ! grep -q "^docs/archive/" "$PROJECT_ROOT/.gitignore" 2>/dev/null; then
     echo "docs/archive/" >> "$PROJECT_ROOT/.gitignore"
 fi
 
-# Clean up: Remove templates directory and init script
-echo "Cleaning up templates and init script..."
-rm -rf "$SCRIPT_DIR/templates"
-rm -f "$SCRIPT_DIR/projekt_init.sh"
-
-# If .git exists in SCRIPT_DIR, this was the cloned repo - remove it
-if [ -d "$SCRIPT_DIR/.git" ] && [ "$SCRIPT_DIR" = "$PROJECT_ROOT" ]; then
-    echo "Removing my-claude-standard git history..."
-    rm -rf "$SCRIPT_DIR/.git"
-fi
+# Clean up: Remove the entire cloned repository
+echo "Cleaning up cloned repository..."
+rm -rf "$SCRIPT_DIR"
 
 echo ""
 echo "=== Initialization Complete ==="
@@ -76,9 +69,7 @@ echo "  ✓ docs/archive/ (for archived work_in_progress files)"
 echo "  ✓ .gitignore (excludes docs/archive/)"
 echo ""
 echo "Cleaned up:"
-echo "  ✓ templates/ directory removed"
-echo "  ✓ projekt_init.sh removed"
-echo "  ✓ my-claude-standard git history removed (if applicable)"
+echo "  ✓ Cloned repository removed"
 echo ""
 echo "Next steps:"
 echo "  1. Initialize your own git repo: git init"
