@@ -8,7 +8,7 @@ Analyze the project and propose appropriate subagents:
    - Existing codebase structure if available
 
 2. **Propose subagents** from https://github.com/VoltAgent/awesome-claude-code-subagents:
-   - List 3-5 relevant subagents
+   - List relevant subagents
    - Explain role of each in this project
    - Note if any require customization
 
