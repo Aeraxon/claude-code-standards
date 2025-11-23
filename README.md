@@ -18,7 +18,7 @@ mkdir my-new-project
 cd my-new-project
 
 # 2. Clone this repo
-git clone <your-repo-url> claude-standards
+git clone https://github.com/Aeraxon/claude-code-standards claude-standards
 
 # 3. Initialize (deploys to parent dir, removes clone)
 cd claude-standards
