@@ -25,9 +25,9 @@ echo "Creating directory structure..."
 mkdir -p "$PROJECT_ROOT/.claude/commands"
 mkdir -p "$PROJECT_ROOT/docs/archive"
 
-# Deploy claude.md
-echo "Deploying claude.md..."
-cp "$SCRIPT_DIR/templates/claude.md" "$PROJECT_ROOT/claude.md"
+# Deploy 
+echo "Deploying ..."
+cp "$SCRIPT_DIR/templates/" "$PROJECT_ROOT/CLAUDE.md"
 
 # Deploy custom commands
 echo "Deploying custom commands..."
@@ -62,7 +62,7 @@ echo ""
 echo "=== Initialization Complete ==="
 echo ""
 echo "Created structure:"
-echo "  ✓ claude.md (workflow standards)"
+echo "  ✓  (workflow standards)"
 echo "  ✓ .claude/commands/ (session-start, session-end, status, create-agents)"
 echo "  ✓ docs/ (vision, architecture, session_notes, work_in_progress, subagents)"
 echo "  ✓ docs/archive/ (for archived work_in_progress files)"
